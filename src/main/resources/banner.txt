@@ -1,0 +1,28 @@
+
+
+
+
+DDDDDDDDDDDDD
+D::::::::::::DDD
+D:::::::::::::::DD
+DDD:::::DDDDD:::::D
+  D:::::D    D:::::Dyyyyyyy           yyyyyyy eeeeeeeeeeee    rrrrr   rrrrrrrrr
+  D:::::D     D:::::Dy:::::y         y:::::yee::::::::::::ee  r::::rrr:::::::::r
+  D:::::D     D:::::D y:::::y       y:::::ye::::::eeeee:::::eer:::::::::::::::::r
+  D:::::D     D:::::D  y:::::y     y:::::ye::::::e     e:::::err::::::rrrrr::::::r
+  D:::::D     D:::::D   y:::::y   y:::::y e:::::::eeeee::::::e r:::::r     r:::::r
+  D:::::D     D:::::D    y:::::y y:::::y  e:::::::::::::::::e  r:::::r     rrrrrrr
+  D:::::D     D:::::D     y:::::y:::::y   e::::::eeeeeeeeeee   r:::::r
+  D:::::D    D:::::D       y:::::::::y    e:::::::e            r:::::r
+DDD:::::DDDDD:::::D         y:::::::y     e::::::::e           r:::::r
+D:::::::::::::::DD           y:::::y       e::::::::eeeeeeee   r:::::r
+D::::::::::::DDD            y:::::y         ee:::::::::::::e   r:::::r
+DDDDDDDDDDDDD              y:::::y            eeeeeeeeeeeeee   rrrrrrr
+                          y:::::y
+                         y:::::y
+                        y:::::y
+                       y:::::y
+                      yyyyyyy
+
+
+
