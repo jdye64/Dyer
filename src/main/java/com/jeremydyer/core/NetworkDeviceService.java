@@ -18,4 +18,28 @@ public class NetworkDeviceService
     private Long networkDeviceServiceId;
     private Long networkDeviceId;
     private DyerServiceEnum serviceType;
+
+    public Long getNetworkDeviceServiceId() {
+        return networkDeviceServiceId;
+    }
+
+    public void setNetworkDeviceServiceId(Long networkDeviceServiceId) {
+        this.networkDeviceServiceId = networkDeviceServiceId;
+    }
+
+    public Long getNetworkDeviceId() {
+        return networkDeviceId;
+    }
+
+    public void setNetworkDeviceId(Long networkDeviceId) {
+        this.networkDeviceId = networkDeviceId;
+    }
+
+    public DyerServiceEnum getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(DyerServiceEnum serviceType) {
+        this.serviceType = serviceType;
+    }
 }
