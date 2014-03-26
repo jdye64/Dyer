@@ -6,7 +6,9 @@ import com.jeremydyer.resource.NetworkDeviceResource;
 import com.jeremydyer.resource.NetworkLocationResource;
 import com.jeremydyer.service.GPIOService;
 import com.jeremydyer.service.impl.GPIOServiceInMemory;
+import com.sun.jersey.api.client.Client;
 import io.dropwizard.Application;
+import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -49,6 +51,7 @@ public class DyerService
         environment.jersey().register(gpioResource);
         environment.jersey().register(gpioCommandResource);
         environment.jersey().register(networkDeviceServiceResource);
+
     }
 
 }

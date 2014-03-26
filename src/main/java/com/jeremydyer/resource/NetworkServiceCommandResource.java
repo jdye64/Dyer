@@ -2,6 +2,7 @@ package com.jeremydyer.resource;
 
 import com.codahale.metrics.annotation.Timed;
 import com.jeremydyer.core.NetworkDeviceServiceCommand;
+import com.jeremydyer.core.dto.NetworkServiceCommandResponse;
 import com.jeremydyer.service.GPIOService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: Jeremy Dyer
@@ -25,9 +27,11 @@ public class NetworkServiceCommandResource {
 
     private GPIOService gpioService;
 
+
     public NetworkServiceCommandResource(GPIOService gpioService) {
         this.gpioService = gpioService;
     }
+
 
     @GET
     @Timed
@@ -45,6 +49,7 @@ public class NetworkServiceCommandResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 
     @GET
     @Timed
@@ -70,5 +75,19 @@ public class NetworkServiceCommandResource {
             logger.error(ex.getMessage(), ex);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+
+    @POST
+    @Timed
+    @Path("/{commandId}")
+    public Response executeServiceCommandWithParameters(@PathParam("locationId") Long locationId,
+                                                        @PathParam("deviceId") Long deviceId,
+                                                        @PathParam("serviceId")
+    Long serviceId, @PathParam("commandId") Long commandId, Map<String, String> commandParameters) {
+        logger.info("Received NetworkServiceCommand");
+        NetworkServiceCommandResponse response = gpioService.executeServiceCommandWithParameters(commandId, serviceId,
+                deviceId, locationId, -1L, commandParameters);
+        return Response.ok(response).build();
     }
 }

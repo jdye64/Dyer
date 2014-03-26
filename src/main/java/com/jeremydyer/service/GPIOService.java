@@ -4,9 +4,10 @@ import com.jeremydyer.core.NetworkDeviceServiceCommand;
 import com.jeremydyer.core.NetworkDevice;
 import com.jeremydyer.core.NetworkDeviceService;
 import com.jeremydyer.core.NetworkLocation;
-import com.jeremydyer.core.gpio.GPIODevicePostBack;
+import com.jeremydyer.core.dto.NetworkServiceCommandResponse;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: Jeremy Dyer
@@ -57,5 +58,17 @@ public interface GPIOService {
                                                                                       Long networkDeviceId,
                                                                                       Long userId);
 
-    public void consumeDevicePostBack(GPIODevicePostBack postBack);
+    /**
+     * Executes a NetworkServiceCommand with the command parameters provided.
+     *
+     * @param commandParameters
+     * @return
+     */
+    public NetworkServiceCommandResponse executeServiceCommandWithParameters(Long serviceCommandId,
+                                                                             Long serviceId, Long deviceId,
+                                                                             Long locationId,
+                                                                             Long userId,
+                                                                             Map<String, String> commandParameters);
+
+//    public void consumeDevicePostBack(GPIODevicePostBack postBack);
 }

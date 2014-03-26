@@ -4,9 +4,12 @@ import com.jeremydyer.core.NetworkDeviceServiceCommand;
 import com.jeremydyer.core.NetworkDevice;
 import com.jeremydyer.core.NetworkDeviceService;
 import com.jeremydyer.core.NetworkLocation;
+import com.jeremydyer.core.dto.NetworkServiceCommandResponse;
 import com.jeremydyer.core.enums.DyerServiceEnum;
-import com.jeremydyer.core.gpio.GPIODevicePostBack;
 import com.jeremydyer.service.GPIOService;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +17,7 @@ import javax.ws.rs.HttpMethod;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Service layer for GPIO implementation
@@ -31,6 +35,7 @@ public class GPIOServiceInMemory
     private List<NetworkDevice> devices = new ArrayList<NetworkDevice>();
     private List<NetworkDeviceService> services = new ArrayList<NetworkDeviceService>();
     private List<NetworkDeviceServiceCommand> commands = new ArrayList<NetworkDeviceServiceCommand>();
+
 
     public GPIOServiceInMemory() {
         this.crazyLazySetupMethodToNotHaveToUseDatabase();
@@ -101,6 +106,7 @@ public class GPIOServiceInMemory
         }
     }
 
+
     @Override
     public List<NetworkDeviceServiceCommand> retrieveDeviceCommandsForDeviceServiceOnDeviceWithUser(Long serviceCommandId,
                                                                                              Long networkDeviceServiceId, Long networkDeviceId, Long userId) {
@@ -125,23 +131,71 @@ public class GPIOServiceInMemory
         }
     }
 
-    public void consumeDevicePostBack(GPIODevicePostBack postBack) {
-        logger.info("Consuming PostBack from Device with IP address: " + postBack.getIpaddress());
 
-        //        //Makes sure that the device is not already in the list
-//        boolean found = false;
-//        for (GPIODevice dev : devices) {
-//            if (dev.getIpaddress().equals(device.getIpaddress())) {
-//                found = true;
-//                break;
-//            }
-//        }
-//
-//        if (!found) {
-//            devices.add(device);
-//            System.out.println("There are now " + devices.size() + " GPIODevices in memory list");
-//        }
+    @Override
+    public NetworkServiceCommandResponse executeServiceCommandWithParameters(Long serviceCommandId, Long serviceId,
+                                                                             Long deviceId, Long locationId,
+                                                                             Long userId,
+                                                                             Map<String, String> commandParameters) {
+
+        List<NetworkDeviceServiceCommand> commandsLocal = retrieveDeviceCommandsForDeviceServiceOnDeviceWithUser
+                (serviceCommandId, serviceId, deviceId, userId);
+
+        List<NetworkDeviceService> servicesLocal = retrieveNetworkDeviceServiceForDeviceAndUser(serviceId, deviceId,
+                userId);
+
+        List<NetworkDevice> devicesLocal = retrieveNetworkDeviceForUserAtLocation(deviceId, locationId, userId);
+
+        if (commandsLocal != null && commandsLocal.size() == 1) {
+            NetworkDeviceServiceCommand command = commandsLocal.get(0);
+            NetworkDeviceService service = servicesLocal.get(0);
+            NetworkDevice device = devicesLocal.get(0);
+
+            logger.info("Running command " + command.getCommandName());
+            logger.info("Command URI -> " + command.getServiceUri() + " : " + command.getHttpMethod());
+            logger.info("Attempting to run command on device " + device.getInternalIpAddress());
+
+            //Gets the command Device so that devices IP address can be retrieved
+            Client client = Client.create();
+            client.setConnectTimeout(10000);
+            String url = "http://" + device.getInternalIpAddress() + ":" + service
+                    .getServicePort() + command.getServiceUri();
+            logger.info("Command URL -> '" + url + "'");
+            WebResource webResource = client.resource(url);
+
+            ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
+            String output = response.getEntity(String.class);
+            logger.info("Command Response -> " + output);
+
+            NetworkServiceCommandResponse res = new NetworkServiceCommandResponse();
+            res.setResponse(output);
+
+            return res;
+        } else {
+            logger.error("Crap we can't find the network service command that you are trying to run are you sure you " +
+                    "have that setup?");
+            return new NetworkServiceCommandResponse();
+        }
     }
+
+
+//    public void consumeDevicePostBack(GPIODevicePostBack postBack) {
+//        logger.info("Consuming PostBack from Device with IP address: " + postBack.getIpaddress());
+//
+//        //        //Makes sure that the device is not already in the list
+////        boolean found = false;
+////        for (GPIODevice dev : devices) {
+////            if (dev.getIpaddress().equals(device.getIpaddress())) {
+////                found = true;
+////                break;
+////            }
+////        }
+////
+////        if (!found) {
+////            devices.add(device);
+////            System.out.println("There are now " + devices.size() + " GPIODevices in memory list");
+////        }
+//    }
 
 
 
@@ -194,6 +248,7 @@ public class GPIOServiceInMemory
         service.setNetworkDeviceId(device.getNetworkDeviceId());
         service.setNetworkDeviceServiceId(new Long(services.size() + 1));
         service.setServiceType(serviceEnum);
+        service.setServicePort(5000);
         services.add(service);
 
         //Creates the commands for the service that was just created.

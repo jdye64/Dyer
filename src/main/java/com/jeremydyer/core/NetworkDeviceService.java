@@ -18,6 +18,7 @@ public class NetworkDeviceService
     private Long networkDeviceServiceId;
     private Long networkDeviceId;
     private DyerServiceEnum serviceType;
+    private int servicePort;
 
     public Long getNetworkDeviceServiceId() {
         return networkDeviceServiceId;
@@ -41,5 +42,13 @@ public class NetworkDeviceService
 
     public void setServiceType(DyerServiceEnum serviceType) {
         this.serviceType = serviceType;
+    }
+
+    public int getServicePort() {
+        return servicePort;
+    }
+
+    public void setServicePort(int servicePort) {
+        this.servicePort = servicePort;
     }
 }
