@@ -1,25 +1,19 @@
-package com.jeremydyer.core;
+package com.jeremydyer.core.gpio;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.jeremydyer.resource.GPIOResource;
-import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 
 /**
  * User: Jeremy Dyer
- * Date: 3/25/14
- * Time: 2:54 PM
+ * Date: 3/26/14
+ * Time: 8:59 AM
  */
-public class GPIODevice
+public class GPIODevicePostBack
     implements Serializable {
-
-    private static final Logger logger = Logger.getLogger(GPIOResource.class);
 
     @JsonProperty
     private String ipaddress;
-
-    public GPIODevice() {}
 
     public String getIpaddress() {
         return ipaddress;
