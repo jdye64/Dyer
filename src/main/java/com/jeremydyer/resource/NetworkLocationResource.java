@@ -38,6 +38,7 @@ public class NetworkLocationResource {
         // locations will be returned.
         List<NetworkLocation> locations = null;
         try {
+            logger.info("Retrieving Locations bro");
             locations = gpioService.retrieveNetworkLocationsForUser(null, -1L);
             return Response.ok(locations).build();
         } catch (Exception ex) {

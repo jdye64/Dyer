@@ -15,6 +15,7 @@ public class NetworkDevice
     private String internalIpAddress;
     private String os;
     private String description;
+    private String shortDescription;        //Looks like right now about 6 characters is the most that can fit in a sphere
 
     public Long getNetworkDeviceId() {
         return networkDeviceId;
@@ -54,5 +55,13 @@ public class NetworkDevice
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 }

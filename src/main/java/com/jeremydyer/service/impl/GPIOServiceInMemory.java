@@ -43,7 +43,7 @@ public class GPIOServiceInMemory
 
 
     @Override
-    public List<NetworkLocation> retrieveNetworkLocationsForUser(Long userId, Long networkLocationId) {
+    public List<NetworkLocation> retrieveNetworkLocationsForUser(Long networkLocationId, Long userId) {
         if (networkLocationId != null) {
             //Only return a single network location.
             for (NetworkLocation loc : locations) {
@@ -201,6 +201,8 @@ public class GPIOServiceInMemory
 
     private void crazyLazySetupMethodToNotHaveToUseDatabase() {
 
+        logger.info("BUILDING INFORMATION!!!");
+
         //Create the network locations.
         NetworkLocation apartment = new NetworkLocation();
         apartment.setNetworkLocationId(1L);
@@ -215,6 +217,7 @@ public class GPIOServiceInMemory
         bedroom.setNetworkLocationId(apartment.getNetworkLocationId());
         bedroom.setOs("Raspbian 3.5.4");
         bedroom.setDescription("Bedroom PowerSwitch");
+        bedroom.setShortDescription("Bed");
         bedroom.setInternalIpAddress("10.0.1.50");
         devices.add(bedroom);
 
@@ -223,6 +226,7 @@ public class GPIOServiceInMemory
         jeremyNightStand.setNetworkLocationId(apartment.getNetworkLocationId());
         jeremyNightStand.setOs("Raspbian 3.5.4");
         jeremyNightStand.setDescription("Jeremy Nightstand PowerSwitch");
+        jeremyNightStand.setShortDescription("J-Nite");
         jeremyNightStand.setInternalIpAddress("10.0.1.51");
         devices.add(jeremyNightStand);
 
@@ -231,6 +235,7 @@ public class GPIOServiceInMemory
         carlaNightStand.setNetworkLocationId(apartment.getNetworkLocationId());
         carlaNightStand.setOs("Raspbian 3.5.4");
         carlaNightStand.setDescription("Carla Nightstand PowerSwitch");
+        carlaNightStand.setShortDescription("C-Nite");
         carlaNightStand.setInternalIpAddress("10.0.1.52");
         devices.add(carlaNightStand);
 
