@@ -1,6 +1,7 @@
 package com.jeremydyer.core;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Defines a network that devices are connected to. This is important if you desire to access devices for
@@ -49,4 +50,5 @@ public class NetworkLocation
     public void setPublicDns(String publicDns) {
         this.publicDns = publicDns;
     }
+
 }

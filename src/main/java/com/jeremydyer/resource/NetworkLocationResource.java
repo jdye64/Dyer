@@ -1,8 +1,10 @@
 package com.jeremydyer.resource;
 
 import com.codahale.metrics.annotation.Timed;
+import com.jeremydyer.core.NetworkDevice;
 import com.jeremydyer.core.NetworkLocation;
-import com.jeremydyer.service.GPIOService;
+import com.jeremydyer.core.dto.NetworkLocationDTO;
+import com.jeremydyer.service.NetworkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,10 +27,10 @@ public class NetworkLocationResource {
 
     private static final Logger logger = LoggerFactory.getLogger(NetworkLocationResource.class);
 
-    private GPIOService gpioService;
+    private NetworkService networkService;
 
-    public NetworkLocationResource(GPIOService gpioService) {
-        this.gpioService = gpioService;
+    public NetworkLocationResource(NetworkService networkService) {
+        this.networkService = networkService;
     }
 
     @GET
@@ -38,7 +40,7 @@ public class NetworkLocationResource {
         // locations will be returned.
         List<NetworkLocation> locations = null;
         try {
-            locations = gpioService.retrieveNetworkLocationsForUser(null, -1L);
+            locations = networkService.retrieveNetworkLocationsForUser(null, -1L);
             return Response.ok(locations).build();
         } catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
@@ -46,19 +48,25 @@ public class NetworkLocationResource {
         }
     }
 
+
     @GET
     @Timed
     @Path("/{locationId}")
-    public Response getNetworkLocation(@PathParam("locationId") Long locationId) {
+    public Response getNetworkLocationWithDevices(@PathParam("locationId") Long locationId) {
         //TODO: Enable authentication and capture the user id here to pass to this method. currently just all
         // locations will be returned.
         List<NetworkLocation> loc = null;
 
         try {
-            loc = gpioService.retrieveNetworkLocationsForUser(locationId, -1L);
+
+            loc = networkService.retrieveNetworkLocationsForUser(locationId, -1L);
 
             if (loc != null && loc.size() == 1) {
-                return Response.ok(loc.get(0)).build();
+                NetworkLocation specificLocation = loc.get(0);
+                List<NetworkDevice> locationDevices = networkService.retrieveNetworkDeviceForUserAtLocation(null, -1L);
+
+                NetworkLocationDTO dto = new NetworkLocationDTO(specificLocation, locationDevices);
+                return Response.ok(dto).build();
             } else {
                 //Couldn't find that NetworkLocation. Return 404.
                 logger.info("No NetworkLocation found with Id " + locationId);
@@ -69,4 +77,5 @@ public class NetworkLocationResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 }
