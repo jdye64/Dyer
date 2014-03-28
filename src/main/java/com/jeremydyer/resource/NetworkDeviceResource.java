@@ -1,12 +1,13 @@
 package com.jeremydyer.resource;
 
-import com.codahale.metrics.annotation.Timed;
 import com.jeremydyer.core.NetworkDevice;
 import com.jeremydyer.core.NetworkDeviceService;
 import com.jeremydyer.core.dto.NetworkDeviceDTO;
-import com.jeremydyer.service.GPIOService;
 import com.jeremydyer.service.NetworkService;
+import com.yammer.metrics.annotation.Timed;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -21,27 +22,21 @@ import java.util.List;
 @Path("/device")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Service
 public class NetworkDeviceResource {
 
     private static final Logger logger = Logger.getLogger(NetworkDeviceResource.class);
 
+    @Autowired
     private NetworkService networkService;
-
-    public NetworkDeviceResource(NetworkService networkService) {
-        this.networkService = networkService;
-    }
-
 
     @GET
     @Timed
     public Response retrieveNetworkDevices() {
-        //TODO: Enable authentication and capture the user id here to pass to this method. currently just all
-        // locations will be returned.
-        List<NetworkDevice> locations = null;
         try {
-            locations = networkService.retrieveNetworkDeviceForUserAtLocation(null, -1L);
-            logger.info(locations.size() + " devices");
-            return Response.ok(locations).build();
+            List<NetworkDevice> devices = networkService.allDevicesForUser(-1L);
+            logger.info(devices.size() + " devices");
+            return Response.ok(devices).build();
         } catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -53,24 +48,11 @@ public class NetworkDeviceResource {
     @Timed
     @Path("/{deviceId}")
     public Response retrieveNetworkDevice(@PathParam("deviceId") Long deviceId) {
-        //TODO: Enable authentication and capture the user id here to pass to this method. currently just all
-        // locations will be returned.
-        List<NetworkDevice> loc = null;
-
         try {
-            loc = networkService.retrieveNetworkDeviceForUserAtLocation(deviceId, -1L);
-
-            if (loc != null && loc.size() == 1) {
-                NetworkDevice specificDevice = loc.get(0);
-                List<NetworkDeviceService> services = networkService.retrieveNetworkDeviceServiceForUser(null, -1L);
-
-                NetworkDeviceDTO dto = new NetworkDeviceDTO(specificDevice, services);
-                return Response.ok(dto).build();
-            } else {
-                //Couldn't find that NetworkLocation. Return 404.
-                logger.info("No NetworkDevice found with Id " + deviceId + " at location");
-                return Response.status(Response.Status.NOT_FOUND).build();
-            }
+            NetworkDevice device = networkService.deviceById(deviceId);
+            List<NetworkDeviceService> services = networkService.servicesForDevice(deviceId);
+            NetworkDeviceDTO dto = new NetworkDeviceDTO(device, services);
+            return Response.ok(dto).build();
         } catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

@@ -1,7 +1,11 @@
 package com.jeremydyer.core;
 
+import com.makeandbuild.persistence.jdbc.SaveWhen;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Defines a network that devices are connected to. This is important if you desire to access devices for
@@ -11,12 +15,30 @@ import java.util.List;
  * Date: 3/26/14
  * Time: 10:05 AM
  */
+@Table(name = "network_location")
+//@Specialize(typeColumn = "javatype")
 public class NetworkLocation
     implements Serializable {
 
+    @Id
+    @Column(name = "network_location_id")
+    @SaveWhen(insert = true, update = false)
     private Long networkLocationId;
+
+    @Column(name = "desc")
+    @SaveWhen(insert = true, update = false)
     private String description;
+
+    @Column(name = "mobile_desc")
+    @SaveWhen(insert = true, update = false)
+    private String mobileDescription;
+
+    @Column(name = "public_ip")
+    @SaveWhen(insert = true, update = false)
     private String publicIpAddress;
+
+    @Column(name = "public_dns")
+    @SaveWhen(insert = true, update = false)
     private String publicDns;
 
     public Long getNetworkLocationId() {
@@ -51,4 +73,11 @@ public class NetworkLocation
         this.publicDns = publicDns;
     }
 
+    public String getMobileDescription() {
+        return mobileDescription;
+    }
+
+    public void setMobileDescription(String mobileDescription) {
+        this.mobileDescription = mobileDescription;
+    }
 }

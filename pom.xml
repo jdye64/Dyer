@@ -9,11 +9,14 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <dropwizard.version>0.7.0-rc2</dropwizard.version>
+        <!--dropwizard.version>0.7.0-rc2</dropwizard.version-->
+        <dropwizard.version>0.6.2</dropwizard.version>
         <mysql.version>5.1.29</mysql.version>
+        <mnb.persistence.version>1.0.15</mnb.persistence.version>
     </properties>
 
     <dependencies>
+        <!--
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
@@ -29,10 +32,46 @@
             <artifactId>dropwizard-jdbi</artifactId>
             <version>${dropwizard.version}</version>
         </dependency>
+        -->
+        <dependency>
+            <groupId>com.yammer.dropwizard</groupId>
+            <artifactId>dropwizard-core</artifactId>
+            <version>${dropwizard.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yammer.dropwizard</groupId>
+            <artifactId>dropwizard-client</artifactId>
+            <version>${dropwizard.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yammer.dropwizard</groupId>
+            <artifactId>dropwizard-jdbi</artifactId>
+            <version>${dropwizard.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.yammer.dropwizard</groupId>
+            <artifactId>dropwizard-auth</artifactId>
+            <version>${dropwizard.version}</version>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.makeandbuild</groupId>
+            <artifactId>persistence</artifactId>
+            <version>${mnb.persistence.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

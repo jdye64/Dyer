@@ -1,7 +1,11 @@
 package com.jeremydyer.core;
 
 import com.jeremydyer.core.enums.DyerServiceEnum;
+import com.makeandbuild.persistence.jdbc.SaveWhen;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -12,12 +16,22 @@ import java.io.Serializable;
  * Date: 3/26/14
  * Time: 11:00 AM
  */
+@Table(name = "service")
+//@Specialize(typeColumn = "javatype")
 public class NetworkDeviceService
     implements Serializable {
 
+    @Id
+    @Column(name = "service_id")
+    @SaveWhen(insert = true, update = false)
     private Long networkDeviceServiceId;
-    private Long networkDeviceId;
+
+    @Column(name = "service_type")
+    @SaveWhen(insert = true, update = true)
     private DyerServiceEnum serviceType;
+
+    @Column(name = "service_port")
+    @SaveWhen(insert = true, update = true)
     private int servicePort;
 
     public Long getNetworkDeviceServiceId() {
@@ -26,14 +40,6 @@ public class NetworkDeviceService
 
     public void setNetworkDeviceServiceId(Long networkDeviceServiceId) {
         this.networkDeviceServiceId = networkDeviceServiceId;
-    }
-
-    public Long getNetworkDeviceId() {
-        return networkDeviceId;
-    }
-
-    public void setNetworkDeviceId(Long networkDeviceId) {
-        this.networkDeviceId = networkDeviceId;
     }
 
     public DyerServiceEnum getServiceType() {

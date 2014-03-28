@@ -1,31 +1,21 @@
-database:
-  # the name of your JDBC driver
-  driverClass: com.mysql.jdbc.Driver
+http:
+  rootPath: /dyer/*
+  port: 8080
+  adminPort: 8081
+  requestLog:
+    console:
+      enabled: false
+    file:
+      enabled: false
+    syslog:
+      enabled: false
 
-  # the username
-  user: root
-
-  # the password
-  password:
-
-  # the JDBC URL
-  url: jdbc:mysql://localhost/dyer
-
-  # any properties specific to your JDBC driver:
-  properties:
-    charSet: UTF-8
-
-  # the maximum amount of time to wait on an empty pool before throwing an exception
-  maxWaitForConnection: 1s
-
-  # the SQL query to run when validating a connection's liveness
-  validationQuery: "/* MyService Health Check */ SELECT 1"
-
-  # the minimum number of connections to keep open
-  minSize: 8
-
-  # the maximum number of connections to keep open
-  maxSize: 32
-
-  # whether or not idle connections should be validated
-  checkConnectionWhileIdle: false
+# Logging settings.
+logging:
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+  loggers:
+    "com.github": ERROR
+    "com.yammer.dropwizard": INFO
+  console:
+    enabled: true
