@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean id="networkService" class="com.jeremydyer.service.impl.NetworkServiceImpl" />
-    <bean id="commandService" class="com.jeremydyer.service.impl.RESTCommandService" />
+    <bean id="networkService" class="com.jeremydyer.service.network.impl.NetworkServiceImpl" />
+    <bean id="commandService" class="com.jeremydyer.service.network.impl.RESTCommandService" />
 
 </beans>

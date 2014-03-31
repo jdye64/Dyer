@@ -9,9 +9,16 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="networkLocationDao" class="com.jeremydyer.dao.jdbc.NetworkLocationDaoImpl" parent="baseJdbc" />
-    <bean id="networkDeviceDao" class="com.jeremydyer.dao.jdbc.NetworkDeviceDaoImpl" parent="baseJdbc" />
-    <bean id="networkDeviceServiceDao" class="com.jeremydyer.dao.jdbc.NetworkDeviceServiceDaoImpl" parent="baseJdbc" />
-    <bean id="networkDeviceServiceCommandDao" class="com.jeremydyer.dao.jdbc.NetworkDeviceServiceCommandDaoImpl" parent="baseJdbc" />
+    <bean id="networkLocationDao" class="com.jeremydyer.dao.network.jdbc.NetworkLocationDaoImpl" parent="baseJdbc" />
+    <bean id="networkDeviceDao" class="com.jeremydyer.dao.network.jdbc.NetworkDeviceDaoImpl" parent="baseJdbc" />
+    <bean id="networkDeviceServiceDao" class="com.jeremydyer.dao.network.jdbc.NetworkDeviceServiceDaoImpl" parent="baseJdbc" />
+    <bean id="networkDeviceServiceCommandDao" class="com.jeremydyer.dao.network.jdbc.NetworkDeviceServiceCommandDaoImpl" parent="baseJdbc" />
+
+    <!-- Woodshop Persistence layer information -->
+    <bean id="woodTypeDao" class="com.jeremydyer.dao.woodshop.jdbc.WoodTypeDaoImpl" parent="baseJdbc" />
+    <bean id="woodSpeciesDao" class="com.jeremydyer.dao.woodshop.jdbc.WoodSpeciesDaoImpl" parent="baseJdbc" />
+    <bean id="woodItemDao" class="com.jeremydyer.dao.woodshop.jdbc.WoodItemDaoImpl" parent="baseJdbc" />
+    <bean id="projectDao" class="com.jeremydyer.dao.woodshop.jdbc.ProjectDaoImpl" parent="baseJdbc" />
+    <bean id="projectCutDao" class="com.jeremydyer.dao.woodshop.jdbc.ProjectCutDaoImpl" parent="baseJdbc" />
 
 </beans>

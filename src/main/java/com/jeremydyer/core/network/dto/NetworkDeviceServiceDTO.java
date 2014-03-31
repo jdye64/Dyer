@@ -1,0 +1,36 @@
+package com.jeremydyer.core.network.dto;
+
+import com.jeremydyer.core.network.NetworkDeviceService;
+import com.jeremydyer.core.network.NetworkDeviceServiceCommand;
+
+import java.util.List;
+
+/**
+ * Created by jeremydyer on 3/27/14.
+ */
+public class NetworkDeviceServiceDTO {
+
+    private NetworkDeviceService service;
+    private List<NetworkDeviceServiceCommand> commands;
+
+    public NetworkDeviceServiceDTO(NetworkDeviceService service, List<NetworkDeviceServiceCommand> commands) {
+        this.service = service;
+        this.commands = commands;
+    }
+
+    public NetworkDeviceService getService() {
+        return service;
+    }
+
+    public void setService(NetworkDeviceService service) {
+        this.service = service;
+    }
+
+    public List<NetworkDeviceServiceCommand> getCommands() {
+        return commands;
+    }
+
+    public void setCommands(List<NetworkDeviceServiceCommand> commands) {
+        this.commands = commands;
+    }
+}
