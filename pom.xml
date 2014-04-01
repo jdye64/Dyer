@@ -12,7 +12,7 @@
         <!--dropwizard.version>0.7.0-rc2</dropwizard.version-->
         <dropwizard.version>0.6.2</dropwizard.version>
         <mysql.version>5.1.29</mysql.version>
-        <mnb.persistence.version>1.0.15</mnb.persistence.version>
+        <mnb.persistence.version>1.0.20</mnb.persistence.version>
     </properties>
 
     <dependencies>
