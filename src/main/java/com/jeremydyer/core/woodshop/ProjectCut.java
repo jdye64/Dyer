@@ -31,6 +31,10 @@ public class ProjectCut
     @SaveWhen(insert = true, update = true)
     private Long woodTypeId;
 
+    @Column(name = "wood_species_id")
+    @SaveWhen(insert = true, update = true)
+    private Long woodSpeciesId;
+
     @Column(name = "width")
     @SaveWhen(insert = true, update = true)
     private float width;
@@ -69,6 +73,14 @@ public class ProjectCut
 
     public void setWoodTypeId(Long woodTypeId) {
         this.woodTypeId = woodTypeId;
+    }
+
+    public Long getWoodSpeciesId() {
+        return woodSpeciesId;
+    }
+
+    public void setWoodSpeciesId(Long woodSpeciesId) {
+        this.woodSpeciesId = woodSpeciesId;
     }
 
     public float getWidth() {

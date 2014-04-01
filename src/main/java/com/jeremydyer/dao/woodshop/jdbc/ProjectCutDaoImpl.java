@@ -7,6 +7,8 @@ import com.makeandbuild.persistence.jdbc.ReflectionBasedJdbcMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 /**
  * User: Jeremy Dyer
  * Date: 3/31/14
@@ -20,5 +22,11 @@ public class ProjectCutDaoImpl
 
     public ProjectCutDaoImpl() {
         super(ReflectionBasedJdbcMapper.proxy(ProjectCut.class), ProjectCut.class, Long.class);
+    }
+
+    @Override
+    public List<ProjectCut> cutsForProject(Long projectId) {
+        String sql = "SELECT * FROM " + this.getDomainMapper().getTablename() + " where project_id = ?";
+        return getJdbcTemplate().query(sql, new Object[]{projectId}, getDomainMapper());
     }
 }

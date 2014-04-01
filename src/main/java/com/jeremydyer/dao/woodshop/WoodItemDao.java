@@ -1,5 +1,6 @@
 package com.jeremydyer.dao.woodshop;
 
+import com.jeremydyer.core.woodshop.ProjectCut;
 import com.jeremydyer.core.woodshop.WoodItem;
 import com.makeandbuild.persistence.jdbc.BaseDao;
 
@@ -16,4 +17,6 @@ public interface WoodItemDao
     List<WoodItem> allWoodItems();
 
     List<WoodItem> retrieveCheckedOutItems();
+
+    WoodItem findWoodItemForProjectCut(ProjectCut projectCut);
 }

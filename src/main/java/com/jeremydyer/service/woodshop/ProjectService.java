@@ -1,5 +1,7 @@
 package com.jeremydyer.service.woodshop;
 
+import com.jeremydyer.core.woodshop.ProjectShoppingList;
+
 /**
  * User: Jeremy Dyer
  * Date: 3/31/14
@@ -7,5 +9,5 @@ package com.jeremydyer.service.woodshop;
  */
 public interface ProjectService {
 
-
+    ProjectShoppingList createShoppingListForProject(Long projectId);
 }

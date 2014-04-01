@@ -3,6 +3,8 @@ package com.jeremydyer.dao.woodshop;
 import com.jeremydyer.core.woodshop.ProjectCut;
 import com.makeandbuild.persistence.jdbc.BaseDao;
 
+import java.util.List;
+
 /**
  * User: Jeremy Dyer
  * Date: 3/31/14
@@ -10,4 +12,6 @@ import com.makeandbuild.persistence.jdbc.BaseDao;
  */
 public interface ProjectCutDao
     extends BaseDao<ProjectCut, Long> {
+
+    List<ProjectCut> cutsForProject(Long projectId);
 }

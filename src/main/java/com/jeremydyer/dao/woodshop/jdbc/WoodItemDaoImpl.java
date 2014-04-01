@@ -1,5 +1,6 @@
 package com.jeremydyer.dao.woodshop.jdbc;
 
+import com.jeremydyer.core.woodshop.ProjectCut;
 import com.jeremydyer.core.woodshop.WoodItem;
 import com.jeremydyer.dao.woodshop.WoodItemDao;
 import com.makeandbuild.persistence.jdbc.BaseDaoImpl;
@@ -34,5 +35,11 @@ public class WoodItemDaoImpl
     public List<WoodItem> retrieveCheckedOutItems() {
         String sql = "SELECT * FROM " + this.getDomainMapper().getTablename() + " WHERE checkout_status = ?";
         return getJdbcTemplate().query(sql, new Object[]{"CHECKED_OUT"}, getDomainMapper());
+    }
+
+    @Override
+    public WoodItem findWoodItemForProjectCut(ProjectCut projectCut) {
+        String sql = "SELECT * FROM " + this.getDomainMapper().getTablename() + " WHERE checkout_status != null AND wood_species_id = ? AND wood_type_id = ? AND ";
+        return getJdbcTemplate().query(sql, new Object[]{projectCut}, getDomainMapper());
     }
 }

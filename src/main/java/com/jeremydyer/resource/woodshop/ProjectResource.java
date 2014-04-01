@@ -1,6 +1,7 @@
 package com.jeremydyer.resource.woodshop;
 
 import com.jeremydyer.core.woodshop.Project;
+import com.jeremydyer.core.woodshop.ProjectShoppingList;
 import com.jeremydyer.dao.woodshop.ProjectDao;
 import com.jeremydyer.service.woodshop.ProjectService;
 import com.yammer.metrics.annotation.Timed;
@@ -93,6 +94,25 @@ public class ProjectResource {
             projectDao.deleteById(projectId);
             return Response.ok().build();
         } catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+    @GET
+    @Timed
+    @Path("/{projectId}/shoppinglist")
+    /**
+     * Gets the list shopping list needed to build a project given your current inventory.
+     */
+    public Response retrieveProjectShoppingList(@PathParam("projectId") Long projectId) {
+        try {
+            logger.info("Gather shopping list for project " + projectId);
+            ProjectShoppingList shoppingList = projectService.createShoppingListForProject(projectId);
+            return Response.ok(shoppingList).build();
+        } catch (Exception ex) {
+            ex.printStackTrace();
             logger.error(ex.getMessage(), ex);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }

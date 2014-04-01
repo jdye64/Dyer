@@ -46,22 +46,24 @@ public class WoodInventoryServiceImpl
 
     @Override
     public WoodItem checkinWoodItem(WoodItem woodItem) {
-        woodItem.setCheckoutStatus(CheckoutStatus.CHECKED_IN);
-
-        if (woodItem.getWoodInventoryId() == null) {
-            woodItem = woodItemDao.save(woodItem);
-        } else {
-            woodItem = woodItemDao.update(woodItem);
-        }
+        //TODO: This isn't properly implemented anymore!
+//        woodItem.setCheckoutStatus(CheckoutStatus.CHECKED_IN);
+//
+//        if (woodItem.getWoodInventoryId() == null) {
+//            woodItem = woodItemDao.save(woodItem);
+//        } else {
+//            woodItem = woodItemDao.update(woodItem);
+//        }
 
         return woodItem;
     }
 
     @Override
     public WoodItem checkoutWoodItem(Long woodItemId) {
+        //TODO: This isn't properly implemented anymore!
         WoodItem wi = woodItemDao.find(woodItemId);
-        wi.setCheckoutStatus(CheckoutStatus.CHECKED_OUT);
-        woodItemDao.update(wi);
+//        wi.setCheckoutStatus(CheckoutStatus.CHECKED_OUT);
+//        woodItemDao.update(wi);
         return wi;
     }
 

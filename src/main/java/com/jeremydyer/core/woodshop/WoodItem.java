@@ -30,9 +30,9 @@ public class WoodItem
     @SaveWhen(insert = true, update = true)
     private Long woodTypeId;
 
-    @Column(name = "checkout_status")
+    @Column(name = "used_for_project")
     @SaveWhen(insert = true, update = true)
-    private CheckoutStatus checkoutStatus;
+    private Long usedForProjectId;
 
     @Column(name = "width")
     @SaveWhen(insert = true, update = true)
@@ -70,12 +70,12 @@ public class WoodItem
         this.woodTypeId = woodTypeId;
     }
 
-    public CheckoutStatus getCheckoutStatus() {
-        return checkoutStatus;
+    public Long getUsedForProjectId() {
+        return usedForProjectId;
     }
 
-    public void setCheckoutStatus(CheckoutStatus checkoutStatus) {
-        this.checkoutStatus = checkoutStatus;
+    public void setUsedForProjectId(Long usedForProjectId) {
+        this.usedForProjectId = usedForProjectId;
     }
 
     public float getWidth() {
