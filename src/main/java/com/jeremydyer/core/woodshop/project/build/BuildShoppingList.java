@@ -1,4 +1,4 @@
-package com.jeremydyer.core.woodshop.project;
+package com.jeremydyer.core.woodshop.project.build;
 
 import com.jeremydyer.core.woodshop.WoodItem;
 
@@ -13,13 +13,14 @@ import java.util.List;
  * Date: 4/1/14
  * Time: 9:51 AM
  */
-public class ProjectShoppingList
+public class BuildShoppingList
     implements Serializable {
 
     private Long projectId;
+    private Long buildId;
     private List<WoodItem> wood = new ArrayList<WoodItem>();
 
-    public ProjectShoppingList() {}
+    public BuildShoppingList() {}
 
     public void addWoodItemToShoppingList(WoodItem woodItem) {
         this.wood.add(woodItem);
@@ -32,6 +33,14 @@ public class ProjectShoppingList
 
     public void setProjectId(Long projectId) {
         this.projectId = projectId;
+    }
+
+    public Long getBuildId() {
+        return buildId;
+    }
+
+    public void setBuildId(Long buildId) {
+        this.buildId = buildId;
     }
 
     public List<WoodItem> getWood() {
