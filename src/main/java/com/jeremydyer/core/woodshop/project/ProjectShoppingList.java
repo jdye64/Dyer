@@ -1,4 +1,6 @@
-package com.jeremydyer.core.woodshop;
+package com.jeremydyer.core.woodshop.project;
+
+import com.jeremydyer.core.woodshop.WoodItem;
 
 import java.io.Serializable;
 import java.util.ArrayList;

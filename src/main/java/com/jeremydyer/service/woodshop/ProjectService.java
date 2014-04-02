@@ -1,6 +1,6 @@
 package com.jeremydyer.service.woodshop;
 
-import com.jeremydyer.core.woodshop.ProjectShoppingList;
+import com.jeremydyer.core.woodshop.project.ProjectShoppingList;
 
 /**
  * User: Jeremy Dyer

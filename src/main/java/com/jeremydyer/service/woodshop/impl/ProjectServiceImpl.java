@@ -1,7 +1,7 @@
 package com.jeremydyer.service.woodshop.impl;
 
-import com.jeremydyer.core.woodshop.ProjectCut;
-import com.jeremydyer.core.woodshop.ProjectShoppingList;
+import com.jeremydyer.core.woodshop.project.ProjectCut;
+import com.jeremydyer.core.woodshop.project.ProjectShoppingList;
 import com.jeremydyer.core.woodshop.WoodItem;
 import com.jeremydyer.dao.woodshop.ProjectCutDao;
 import com.jeremydyer.dao.woodshop.ProjectDao;

@@ -1,4 +1,4 @@
-package com.jeremydyer.core.woodshop;
+package com.jeremydyer.core.woodshop.project;
 
 import com.makeandbuild.persistence.jdbc.SaveWhen;
 

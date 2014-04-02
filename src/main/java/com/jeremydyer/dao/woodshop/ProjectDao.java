@@ -1,6 +1,6 @@
 package com.jeremydyer.dao.woodshop;
 
-import com.jeremydyer.core.woodshop.Project;
+import com.jeremydyer.core.woodshop.project.Project;
 import com.makeandbuild.persistence.jdbc.BaseDao;
 
 import java.util.List;

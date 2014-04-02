@@ -1,6 +1,6 @@
 package com.jeremydyer.dao.woodshop.jdbc;
 
-import com.jeremydyer.core.woodshop.Project;
+import com.jeremydyer.core.woodshop.project.Project;
 import com.jeremydyer.dao.woodshop.ProjectDao;
 import com.makeandbuild.persistence.jdbc.BaseDaoImpl;
 import com.makeandbuild.persistence.jdbc.ReflectionBasedJdbcMapper;
