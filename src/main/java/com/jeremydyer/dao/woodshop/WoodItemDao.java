@@ -18,7 +18,5 @@ public interface WoodItemDao
 
     List<WoodItem> retrieveCheckedOutItems();
 
-    WoodItem markWoodAsUsedForBuild(Long woodItemId, Long projectBuildId);
-
     WoodItem findWoodItemForProjectCut(ProjectCut projectCut);
 }

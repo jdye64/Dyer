@@ -37,15 +37,15 @@ public class WoodItemDaoImpl
         return getJdbcTemplate().query(sql, new Object[]{"CHECKED_OUT"}, getDomainMapper());
     }
 
-    @Override
-    public WoodItem markWoodAsUsedForBuild(Long woodItemId, Long projectBuildId) {
-        String sql = "UPDATE " + this.getDomainMapper().getTablename() + " SET used_for_build_id = ? WHERE wood_item_id = ?";
-        return getJdbcTemplate().queryForObject(sql, new Object[]{projectBuildId, woodItemId}, getDomainMapper());
-    }
 
     @Override
     public WoodItem findWoodItemForProjectCut(ProjectCut projectCut) {
-        String sql = "SELECT * FROM " + this.getDomainMapper().getTablename() + " WHERE checkout_status != null AND wood_species_id = ? AND wood_type_id = ?";
-        return getJdbcTemplate().queryForObject(sql, new Object[]{projectCut.getWoodSpeciesId(), projectCut.getWoodTypeId()},                getDomainMapper());
+        String sql = "SELECT * FROM " + this.getDomainMapper().getTablename() + " WHERE wood_species_id" +
+                " = ? AND wood_type_id = ? AND height = ? AND width = ? AND length >= ? LIMIT 1";
+
+        logger.info("SQL Query -> " + sql);
+        return getJdbcTemplate().queryForObject(sql, new Object[]{projectCut.getWoodSpeciesId(),
+                projectCut.getWoodTypeId(), projectCut.getHeight(), projectCut.getWidth(), projectCut.getLength()},
+                getDomainMapper());
     }
 }

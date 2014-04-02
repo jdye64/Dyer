@@ -1,7 +1,6 @@
 package com.jeremydyer.service.woodshop.impl;
 
 import com.jeremydyer.core.woodshop.WoodItem;
-import com.jeremydyer.core.woodshop.enums.CheckoutStatus;
 import com.jeremydyer.dao.woodshop.WoodItemDao;
 import com.jeremydyer.dao.woodshop.WoodSpeciesDao;
 import com.jeremydyer.dao.woodshop.WoodTypeDao;

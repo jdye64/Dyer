@@ -6,6 +6,7 @@ import com.makeandbuild.persistence.ObjectNotFoundException;
 import com.makeandbuild.persistence.jdbc.BaseDao;
 import com.makeandbuild.persistence.jdbc.PagedResponse;
 import com.makeandbuild.persistence.jdbc.SortBy;
+import com.yammer.metrics.annotation.Timed;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,7 @@ public abstract class ResourceBase2<T, ID>
 
     @Path("/{id}")
     @GET
+    @Timed
     public Response getOne(@PathParam("id") final ID id) {
         try{
             T model = getDao().find(id);
@@ -56,6 +58,7 @@ public abstract class ResourceBase2<T, ID>
 
 
     @GET
+    @Timed
     public Response getList(@Context UriInfo ui) {
         try {
             List<Criteria> criterias = new ArrayList<Criteria>();
@@ -95,6 +98,7 @@ public abstract class ResourceBase2<T, ID>
     @POST
     @Consumes("application/json")
     @Produces("application/json")
+    @Timed
     public Response create(String json) {
         try{
             T model = (T) getObjectMapper().readValue(json, resourceClass);
@@ -111,6 +115,7 @@ public abstract class ResourceBase2<T, ID>
     @PUT
     @Consumes("application/json")
     @Produces("application/json")
+    @Timed
     public Response update(String json) {
         try{
             T model = (T) getObjectMapper().readValue(json, resourceClass);
@@ -126,6 +131,7 @@ public abstract class ResourceBase2<T, ID>
 
     @Path("/{id}")
     @DELETE
+    @Timed
     public Response delete(@PathParam("id") final ID id) {
         try{
             getDao().deleteById(id);
