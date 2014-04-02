@@ -1,6 +1,5 @@
 package com.jeremydyer.core.woodshop;
 
-import com.jeremydyer.core.woodshop.enums.CheckoutStatus;
 import com.makeandbuild.persistence.jdbc.SaveWhen;
 
 import javax.persistence.Column;
@@ -30,9 +29,9 @@ public class WoodItem
     @SaveWhen(insert = true, update = true)
     private Long woodTypeId;
 
-    @Column(name = "used_for_project")
+    @Column(name = "used_for_build_id")
     @SaveWhen(insert = true, update = true)
-    private Long usedForProjectId;
+    private Long usedForProjectBuildId;
 
     @Column(name = "width")
     @SaveWhen(insert = true, update = true)
@@ -70,12 +69,12 @@ public class WoodItem
         this.woodTypeId = woodTypeId;
     }
 
-    public Long getUsedForProjectId() {
-        return usedForProjectId;
+    public Long getUsedForProjectBuildId() {
+        return usedForProjectBuildId;
     }
 
-    public void setUsedForProjectId(Long usedForProjectId) {
-        this.usedForProjectId = usedForProjectId;
+    public void setUsedForProjectBuildId(Long usedForProjectBuildId) {
+        this.usedForProjectBuildId = usedForProjectBuildId;
     }
 
     public float getWidth() {

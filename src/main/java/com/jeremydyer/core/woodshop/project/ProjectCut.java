@@ -39,13 +39,25 @@ public class ProjectCut
     @SaveWhen(insert = true, update = true)
     private float width;
 
+    @Column(name = "exact_width")
+    @SaveWhen(insert = true, update = true)
+    private boolean exactWidth;
+
     @Column(name = "height")
     @SaveWhen(insert = true, update = true)
     private float height;
 
+    @Column(name = "exact_height")
+    @SaveWhen(insert = true, update = true)
+    private boolean exactHeight;
+
     @Column(name = "length")
     @SaveWhen(insert = true, update = true)
     private float length;
+
+    @Column(name = "exact_length")
+    @SaveWhen(insert = true, update = true)
+    private boolean exactLength;
 
     @Column(name = "description")
     @SaveWhen(insert = true, update = true)
@@ -91,6 +103,14 @@ public class ProjectCut
         this.width = width;
     }
 
+    public boolean isExactWidth() {
+        return exactWidth;
+    }
+
+    public void setExactWidth(boolean exactWidth) {
+        this.exactWidth = exactWidth;
+    }
+
     public float getHeight() {
         return height;
     }
@@ -99,12 +119,28 @@ public class ProjectCut
         this.height = height;
     }
 
+    public boolean isExactHeight() {
+        return exactHeight;
+    }
+
+    public void setExactHeight(boolean exactHeight) {
+        this.exactHeight = exactHeight;
+    }
+
     public float getLength() {
         return length;
     }
 
     public void setLength(float length) {
         this.length = length;
+    }
+
+    public boolean isExactLength() {
+        return exactLength;
+    }
+
+    public void setExactLength(boolean exactLength) {
+        this.exactLength = exactLength;
     }
 
     public String getDescription() {
