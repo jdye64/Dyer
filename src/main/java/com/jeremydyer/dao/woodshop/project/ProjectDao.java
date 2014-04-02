@@ -1,4 +1,4 @@
-package com.jeremydyer.dao.woodshop;
+package com.jeremydyer.dao.woodshop.project;
 
 import com.jeremydyer.core.woodshop.project.Project;
 import com.makeandbuild.persistence.jdbc.BaseDao;

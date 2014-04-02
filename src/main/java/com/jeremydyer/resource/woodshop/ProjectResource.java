@@ -2,7 +2,7 @@ package com.jeremydyer.resource.woodshop;
 
 import com.jeremydyer.core.woodshop.project.Project;
 import com.jeremydyer.core.woodshop.project.ProjectShoppingList;
-import com.jeremydyer.dao.woodshop.ProjectDao;
+import com.jeremydyer.dao.woodshop.project.ProjectDao;
 import com.jeremydyer.service.woodshop.ProjectService;
 import com.yammer.metrics.annotation.Timed;
 import org.slf4j.Logger;

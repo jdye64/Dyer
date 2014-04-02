@@ -1,7 +1,7 @@
-package com.jeremydyer.dao.woodshop.jdbc;
+package com.jeremydyer.dao.woodshop.project.jdbc;
 
 import com.jeremydyer.core.woodshop.project.ProjectCut;
-import com.jeremydyer.dao.woodshop.ProjectCutDao;
+import com.jeremydyer.dao.woodshop.project.ProjectCutDao;
 import com.makeandbuild.persistence.jdbc.BaseDaoImpl;
 import com.makeandbuild.persistence.jdbc.ReflectionBasedJdbcMapper;
 import org.slf4j.Logger;
