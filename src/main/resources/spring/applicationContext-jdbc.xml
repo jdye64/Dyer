@@ -20,5 +20,8 @@
     <bean id="woodItemDao" class="com.jeremydyer.dao.woodshop.jdbc.WoodItemDaoImpl" parent="baseJdbc" />
     <bean id="projectDao" class="com.jeremydyer.dao.woodshop.project.jdbc.ProjectDaoImpl" parent="baseJdbc" />
     <bean id="projectCutDao" class="com.jeremydyer.dao.woodshop.project.jdbc.ProjectCutDaoImpl" parent="baseJdbc" />
-
+    <bean id="projectStepDao" class="com.jeremydyer.dao.woodshop.project.jdbc.ProjectStepDaoImpl" parent="baseJdbc" />
+    <bean id="buildDao" class="com.jeremydyer.dao.woodshop.project.build.jdbc.BuildDaoImpl" parent="baseJdbc" />
+    <bean id="buildCutDao" class="com.jeremydyer.dao.woodshop.project.build.jdbc.BuildCutDaoImpl" parent="baseJdbc" />
+    <bean id="buildTimeDao" class="com.jeremydyer.dao.woodshop.project.build.jdbc.BuildTimeDaoImpl" parent="baseJdbc" />
 </beans>
