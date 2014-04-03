@@ -1,9 +1,15 @@
 package com.jeremydyer.resource.woodshop.project;
 
+import com.jeremydyer.core.media.Photo;
 import com.jeremydyer.core.woodshop.project.Project;
 import com.jeremydyer.dao.woodshop.project.ProjectDao;
 import com.jeremydyer.resource.ResourceBase2;
+import com.jeremydyer.service.media.PhotoService;
+import com.jeremydyer.service.media.impl.PhotoServiceImpl;
 import com.makeandbuild.persistence.jdbc.BaseDao;
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
+import com.yammer.metrics.annotation.Timed;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -11,9 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.io.InputStream;
 
 /**
  * User: Jeremy Dyer
@@ -32,11 +41,29 @@ public class ProjectResource
     @Autowired
     private ProjectDao projectDao;
 
+    @Autowired
+    private PhotoService photoService;
+
     private ObjectMapper objectMapper;
 
 
     public ProjectResource() {
         super(Project.class);
+    }
+
+
+    @POST
+    @Path("/{projectId}/photo")
+    @Timed
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response uploadProjectPhoto(@PathParam("projectId") Long projectId, @FormDataParam("file") final InputStream
+            stream, @FormDataParam("file") FormDataContentDisposition fileDetail) {
+        try {
+            Photo savedPhoto = photoService.savePhoto(PhotoServiceImpl.PHOTOCAT_PROJECT, projectId, stream, fileDetail);
+            return Response.ok().entity(savedPhoto).build();
+        } catch(Exception e) {
+            throw new RestClientException(e.getMessage());
+        }
     }
 
 

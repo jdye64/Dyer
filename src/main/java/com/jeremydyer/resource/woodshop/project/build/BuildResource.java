@@ -64,18 +64,6 @@ public class BuildResource
     public Response uploadBuildPhoto(@PathParam("buildId") Long buildId, @FormDataParam("file") final InputStream
             stream, @FormDataParam("file") FormDataContentDisposition fileDetail) {
         try {
-            logger.info("Made it here at least ...");
-            if (stream == null) {
-                logger.info("Well crap that is the problem the stream is null ...");
-            } else {
-                logger.info("The stream appears to be fine ....");
-            }
-            if (fileDetail == null) {
-                logger.info("The file detail is null though");
-            } else {
-                logger.info("File Detail is fine");
-                logger.info("File Name " + fileDetail.getName());
-            }
             Photo savedPhoto = photoService.savePhoto(PhotoServiceImpl.PHOTOCAT_BUILD, buildId, stream, fileDetail);
             return Response.ok().entity(savedPhoto).build();
         } catch(Exception e) {
