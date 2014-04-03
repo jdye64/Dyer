@@ -38,7 +38,7 @@ public class ProjectStep
 
     @Column(name = "step_description")
     @SaveWhen(insert = true, update = true)
-    private Date stepDescription;
+    private String stepDescription;
 
     public Long getProjectStepId() {
         return projectStepId;
@@ -72,11 +72,11 @@ public class ProjectStep
         this.estimatedTimeInMinutes = estimatedTimeInMinutes;
     }
 
-    public Date getStepDescription() {
+    public String getStepDescription() {
         return stepDescription;
     }
 
-    public void setStepDescription(Date stepDescription) {
+    public void setStepDescription(String stepDescription) {
         this.stepDescription = stepDescription;
     }
 }

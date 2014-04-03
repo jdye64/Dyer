@@ -4,15 +4,18 @@ import com.jeremydyer.core.media.Photo;
 import com.jeremydyer.core.woodshop.project.ProjectStep;
 import com.jeremydyer.dao.woodshop.project.ProjectStepDao;
 import com.jeremydyer.resource.ResourceBase2;
+import com.jeremydyer.resource.serializers.ProjectStepSerializer;
 import com.jeremydyer.service.media.PhotoService;
 import com.jeremydyer.service.media.impl.PhotoServiceImpl;
 import com.makeandbuild.persistence.jdbc.BaseDao;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
 import com.yammer.metrics.annotation.Timed;
+import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codehaus.jackson.map.module.SimpleModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +46,9 @@ public class ProjectStepResource
 
     @Autowired
     private PhotoService photoService;
+
+    @Autowired
+    private ProjectStepSerializer projectStepSerializer;
 
     private ObjectMapper objectMapper;
 
@@ -77,6 +83,9 @@ public class ProjectStepResource
             objectMapper = new ObjectMapper();
             objectMapper.getSerializationConfig().setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
             objectMapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false);
+            SimpleModule simpleModule = new SimpleModule("ProjectStep", new Version(1, 0, 0, null));
+            simpleModule.addSerializer(ProjectStep.class, projectStepSerializer);
+            objectMapper.registerModule(simpleModule);
         }
         return objectMapper;
     }
