@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 /**
@@ -39,7 +41,8 @@ public class PhotoServiceImpl
 
         File photoWriteFile = createPhotoUploadFilePath(photoDetails);
         logger.info("Saving photo to -> '" + photoWriteFile.getAbsolutePath() + "'");
-        IOUtils.copy(photoInputStream, new FileOutputStream(photoWriteFile));
+        byte[] imageData = IOUtils.toByteArray(photoInputStream);
+        IOUtils.copy(new ByteArrayInputStream(imageData), new FileOutputStream(photoWriteFile));
 
         Photo photo = new Photo();
         photo.setCategoryId(categoryId);
@@ -49,9 +52,9 @@ public class PhotoServiceImpl
         photo.setPhotoType(FilenameUtils.getExtension(photoDetails.getFileName()));
         photo.setSize(photoWriteFile.length());
 
-        //TODO: Find a way to get this informtion
-        photo.setWidthPixels(100);
-        photo.setHeightPixels(100);
+        BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageData));
+        photo.setWidthPixels(image.getWidth());
+        photo.setHeightPixels(image.getHeight());
 
         photo = photoDao.save(photo);
 
