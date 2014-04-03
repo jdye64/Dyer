@@ -34,7 +34,7 @@ public class DyerService
         bootstrap.getObjectMapperFactory().setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
         //serve some HTML resources
-        bootstrap.addBundle(new AssetsBundle("/assets/", "/dyer/"));
+        bootstrap.addBundle(new AssetsBundle("/assets"));
     }
 
     @Override
@@ -85,34 +85,10 @@ public class DyerService
 
         //last, but not least, let's link Spring to the embedded Jetty in Dropwizard
         environment.addServletListeners(new SpringContextLoaderListener(ctx));
-       // environment.addProvider(com.sun.jersey.multipart.impl.MultiPartReaderServerSide.class);
+        //environment.addProvider(com.sun.jersey.multipart.impl.MultiPartReaderServerSide.class);
 
         //activate Spring Security filter
-        environment.addFilter(DelegatingFilterProxy.class,"/*").setName("springSecurityFilterChain");
-
-//        final DBIFactory factory = new DBIFactory();
-//        final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
-//
-//        //Creates the DAOs first since they will be injected into the service layers.
-//        final NetworkLocationDao networkLocationDao = jdbi.onDemand(NetworkLocationDao.class);
-//        final NetworkDeviceDao networkDeviceDao = jdbi.onDemand(NetworkDeviceDao.class);
-//        final NetworkDeviceServiceDao networkDeviceServiceDao = jdbi.onDemand(NetworkDeviceServiceDao.class);
-//        final NetworkDeviceServiceCommandDao networkDeviceServiceCommandDao = jdbi.onDemand(NetworkDeviceServiceCommandDao.class);
-//
-//        NetworkService networkService = new NetworkServiceImpl(networkLocationDao, networkDeviceDao, networkDeviceServiceDao);
-//        CommandService restCommandService = new RESTCommandService(networkDeviceServiceCommandDao);
-//
-//        final NetworkLocationResource networkLocationResource = new NetworkLocationResource(networkService);
-//        final NetworkDeviceResource networkDeviceResource = new NetworkDeviceResource(networkService);
-//        final NetworkDeviceServiceResource networkDeviceServiceResource = new NetworkDeviceServiceResource
-//                (networkService);
-//        final DeviceServiceCommandResource deviceServiceCommandResource = new DeviceServiceCommandResource(restCommandService);
-//
-//        //Register the dropwizard resources with jersey
-//        environment.jersey().register(networkLocationResource);
-//        environment.jersey().register(networkDeviceResource);
-//        environment.jersey().register(networkDeviceServiceResource);
-//        environment.jersey().register(deviceServiceCommandResource);
+        environment.addFilter(DelegatingFilterProxy.class, "/*").setName("springSecurityFilterChain");
     }
 
 }

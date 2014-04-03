@@ -4,6 +4,7 @@ import com.jeremydyer.core.media.Photo;
 import com.jeremydyer.dao.media.PhotoDao;
 import com.jeremydyer.service.media.PhotoService;
 import com.sun.jersey.core.header.FormDataContentDisposition;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,16 +37,17 @@ public class PhotoServiceImpl
     public Photo savePhoto(Long photoCategory, Long categoryId, InputStream photoInputStream, 
                            FormDataContentDisposition photoDetails) throws IOException {
 
-        File photoWriteFile = new File(fileSystemBasePath + photoDetails.getName());
+        File photoWriteFile = createPhotoUploadFilePath(photoDetails);
         logger.info("Saving photo to -> '" + photoWriteFile.getAbsolutePath() + "'");
         IOUtils.copy(photoInputStream, new FileOutputStream(photoWriteFile));
 
         Photo photo = new Photo();
         photo.setCategoryId(categoryId);
         photo.setPhotoCategory(photoCategory);
-        photo.setName(photoDetails.getName());
-        photo.setPhotoType(photoDetails.getType());
-        photo.setSize(photoDetails.getSize());
+        photo.setOriginalName(photoWriteFile.getName());
+        photo.setName(photoDetails.getFileName());
+        photo.setPhotoType(FilenameUtils.getExtension(photoDetails.getFileName()));
+        photo.setSize(photoWriteFile.length());
 
         //TODO: Find a way to get this informtion
         photo.setWidthPixels(100);
@@ -55,6 +57,27 @@ public class PhotoServiceImpl
 
         return photo;
     }
+
+
+    /**
+     * Creates the location where the photo will be saved to.
+     *
+     * @param photoDetails
+     * @return
+     */
+    private File createPhotoUploadFilePath(FormDataContentDisposition photoDetails) {
+        File file = null;
+
+        if (photoDetails.getFileName() != null) {
+            String ext = FilenameUtils.getExtension(photoDetails.getFileName());
+            file = new File(this.fileSystemBasePath + new Long(System.nanoTime()).toString() + "." + ext);
+        } else {
+            file = new File(this.fileSystemBasePath + new Long(System.nanoTime()).toString());
+        }
+
+        return file;
+    }
+
 
     public String getFileSystemBasePath() {
         return fileSystemBasePath;

@@ -31,6 +31,10 @@ public class Photo
     @SaveWhen(insert = true, update = true)
     private Long categoryId;
 
+    @Column(name = "original_name")
+    @SaveWhen(insert = true, update = true)
+    private String originalName;
+
     @Column(name = "name")
     @SaveWhen(insert = true, update = true)
     private String name;
@@ -39,7 +43,7 @@ public class Photo
     @SaveWhen(insert = true, update = true)
     private Long size;
 
-    @Column(name = "photo_type")
+    @Column(name = "type")
     @SaveWhen(insert = true, update = true)
     private String photoType;
 
@@ -73,6 +77,14 @@ public class Photo
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getOriginalName() {
+        return originalName;
+    }
+
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
     }
 
     public String getName() {
