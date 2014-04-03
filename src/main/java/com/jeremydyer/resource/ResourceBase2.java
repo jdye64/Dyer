@@ -95,6 +95,7 @@ public abstract class ResourceBase2<T, ID>
         }
     }
 
+
     @POST
     @Consumes("application/json")
     @Produces("application/json")

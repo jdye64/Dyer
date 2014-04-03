@@ -6,7 +6,11 @@ import com.jeremydyer.dao.woodshop.project.ProjectDao;
 import com.jeremydyer.resource.ResourceBase2;
 import com.jeremydyer.service.media.PhotoService;
 import com.jeremydyer.service.media.impl.PhotoServiceImpl;
+import com.makeandbuild.persistence.AbstractPagedRequest;
+import com.makeandbuild.persistence.Criteria;
 import com.makeandbuild.persistence.jdbc.BaseDao;
+import com.makeandbuild.persistence.jdbc.PagedResponse;
+import com.makeandbuild.persistence.jdbc.SortBy;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
 import com.yammer.metrics.annotation.Timed;
@@ -20,9 +24,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * User: Jeremy Dyer
@@ -44,8 +50,8 @@ public class ProjectResource
     @Autowired
     private PhotoService photoService;
 
-    private ObjectMapper objectMapper;
 
+    private ObjectMapper objectMapper;
 
     public ProjectResource() {
         super(Project.class);

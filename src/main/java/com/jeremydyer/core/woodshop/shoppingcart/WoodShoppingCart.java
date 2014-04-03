@@ -48,4 +48,68 @@ public class WoodShoppingCart
     @Column(name = "length")
     @SaveWhen(insert = true, update = true)
     private float length;
+
+    public Long getWoodShoppingCartId() {
+        return woodShoppingCartId;
+    }
+
+    public void setWoodShoppingCartId(Long woodShoppingCartId) {
+        this.woodShoppingCartId = woodShoppingCartId;
+    }
+
+    public Long getBuildId() {
+        return buildId;
+    }
+
+    public void setBuildId(Long buildId) {
+        this.buildId = buildId;
+    }
+
+    public Long getProjectCutId() {
+        return projectCutId;
+    }
+
+    public void setProjectCutId(Long projectCutId) {
+        this.projectCutId = projectCutId;
+    }
+
+    public Long getWoodSpeciesId() {
+        return woodSpeciesId;
+    }
+
+    public void setWoodSpeciesId(Long woodSpeciesId) {
+        this.woodSpeciesId = woodSpeciesId;
+    }
+
+    public Long getWoodTypeId() {
+        return woodTypeId;
+    }
+
+    public void setWoodTypeId(Long woodTypeId) {
+        this.woodTypeId = woodTypeId;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public float getLength() {
+        return length;
+    }
+
+    public void setLength(float length) {
+        this.length = length;
+    }
 }
