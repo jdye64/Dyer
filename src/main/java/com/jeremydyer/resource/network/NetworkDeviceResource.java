@@ -1,18 +1,19 @@
 package com.jeremydyer.resource.network;
 
 import com.jeremydyer.core.network.NetworkDevice;
-import com.jeremydyer.core.network.NetworkDeviceService;
-import com.jeremydyer.core.network.dto.NetworkDeviceDTO;
-import com.jeremydyer.service.network.NetworkService;
-import com.yammer.metrics.annotation.Timed;
-import org.apache.log4j.Logger;
+import com.jeremydyer.dao.network.NetworkDeviceDao;
+import com.jeremydyer.resource.ResourceBase2;
+import com.makeandbuild.persistence.jdbc.BaseDao;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.List;
+
 
 /**
  * User: Jeremy Dyer
@@ -23,40 +24,32 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Service
-public class NetworkDeviceResource {
+public class NetworkDeviceResource
+        extends ResourceBase2<NetworkDevice, Long> {
 
-    private static final Logger logger = Logger.getLogger(NetworkDeviceResource.class);
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(NetworkDeviceResource.class);
 
     @Autowired
-    private NetworkService networkService;
+    private NetworkDeviceDao networkDeviceDao;
 
-    @GET
-    @Timed
-    public Response retrieveNetworkDevices() {
-        try {
-            List<NetworkDevice> devices = networkService.allDevicesForUser(-1L);
-            logger.info(devices.size() + " devices");
-            return Response.ok(devices).build();
-        } catch (Exception ex) {
-            logger.error(ex.getMessage(), ex);
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
+    private ObjectMapper objectMapper;
+
+    public NetworkDeviceResource() {
+        super(NetworkDevice.class);
     }
 
-
-    @GET
-    @Timed
-    @Path("/{deviceId}")
-    public Response retrieveNetworkDevice(@PathParam("deviceId") Long deviceId) {
-        try {
-            NetworkDevice device = networkService.deviceById(deviceId);
-            List<NetworkDeviceService> services = networkService.servicesForDevice(deviceId);
-            NetworkDeviceDTO dto = new NetworkDeviceDTO(device, services);
-            return Response.ok(dto).build();
-        } catch (Exception ex) {
-            logger.error(ex.getMessage(), ex);
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
+    @Override
+    protected BaseDao<NetworkDevice, Long> getDao() {
+        return networkDeviceDao;
     }
 
+    @Override
+    protected ObjectMapper getObjectMapper() {
+        if (objectMapper == null){
+            objectMapper = new ObjectMapper();
+            objectMapper.getSerializationConfig().setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+            objectMapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false);
+        }
+        return objectMapper;
+    }
 }
