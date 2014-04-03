@@ -1,12 +1,17 @@
 package com.jeremydyer.resource.woodshop.project.build;
 
+import com.jeremydyer.core.media.Photo;
 import com.jeremydyer.core.woodshop.project.build.Build;
 import com.jeremydyer.core.woodshop.project.build.BuildShoppingList;
 import com.jeremydyer.dao.woodshop.project.build.BuildDao;
 import com.jeremydyer.resource.ResourceBase2;
+import com.jeremydyer.service.media.PhotoService;
+import com.jeremydyer.service.media.impl.PhotoServiceImpl;
 import com.jeremydyer.service.woodshop.build.BuildService;
 import com.makeandbuild.persistence.ObjectNotFoundException;
 import com.makeandbuild.persistence.jdbc.BaseDao;
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
 import com.yammer.metrics.annotation.Timed;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
@@ -20,6 +25,7 @@ import org.springframework.web.client.RestClientException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.InputStream;
 
 /**
  * User: Jeremy Dyer
@@ -39,12 +45,42 @@ public class BuildResource
     private BuildDao buildDao;
 
     @Autowired
+    private PhotoService photoService;
+
+    @Autowired
     private BuildService buildService;
 
     private ObjectMapper objectMapper;
 
     public BuildResource() {
         super(Build.class);
+    }
+
+
+    @POST
+    @Path("/{buildId}/photo")
+    @Timed
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response uploadBuildPhoto(@PathParam("buildId") Long buildId, @FormDataParam("file") final InputStream
+            stream, @FormDataParam("file") FormDataContentDisposition fileDetail) {
+        try {
+            logger.info("Made it here at least ...");
+            if (stream == null) {
+                logger.info("Well crap that is the problem the stream is null ...");
+            } else {
+                logger.info("The stream appears to be fine ....");
+            }
+            if (fileDetail == null) {
+                logger.info("The file detail is null though");
+            } else {
+                logger.info("File Detail is fine");
+                logger.info("File Name " + fileDetail.getName());
+            }
+            Photo savedPhoto = photoService.savePhoto(PhotoServiceImpl.PHOTOCAT_BUILD, buildId, stream, fileDetail);
+            return Response.ok().entity(savedPhoto).build();
+        } catch(Exception e) {
+            throw new RestClientException(e.getMessage());
+        }
     }
 
 

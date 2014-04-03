@@ -6,4 +6,8 @@
     <bean id="networkService" class="com.jeremydyer.service.network.impl.NetworkServiceImpl" />
     <bean id="commandService" class="com.jeremydyer.service.network.impl.RESTCommandService" />
 
+    <bean id="photoService" class="com.jeremydyer.service.media.impl.PhotoServiceImpl">
+        <property name="fileSystemBasePath" value="${photo.filesystem.base.path}" />
+    </bean>
+
 </beans>

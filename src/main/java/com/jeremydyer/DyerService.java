@@ -85,6 +85,7 @@ public class DyerService
 
         //last, but not least, let's link Spring to the embedded Jetty in Dropwizard
         environment.addServletListeners(new SpringContextLoaderListener(ctx));
+       // environment.addProvider(com.sun.jersey.multipart.impl.MultiPartReaderServerSide.class);
 
         //activate Spring Security filter
         environment.addFilter(DelegatingFilterProxy.class,"/*").setName("springSecurityFilterChain");

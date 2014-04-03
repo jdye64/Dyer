@@ -10,4 +10,6 @@ import com.makeandbuild.persistence.jdbc.BaseDao;
  */
 public interface BuildCutDao
     extends BaseDao<BuildCut, Long> {
+
+    BuildCut buildCutForProjectCut(Long buildId, Long projectCutId);
 }

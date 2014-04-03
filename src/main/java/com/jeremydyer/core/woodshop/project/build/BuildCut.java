@@ -36,10 +36,6 @@ public class BuildCut
     @SaveWhen(insert = true, update = true)
     private Long cutFromWoodItemId;
 
-    @Column(name = "created_wooditem_id")
-    @SaveWhen(insert = true, update = true)
-    private Long createdWoodItemId;
-
     public Long getProjectBuildCutId() {
         return projectBuildCutId;
     }
@@ -70,13 +66,5 @@ public class BuildCut
 
     public void setCutFromWoodItemId(Long cutFromWoodItemId) {
         this.cutFromWoodItemId = cutFromWoodItemId;
-    }
-
-    public Long getCreatedWoodItemId() {
-        return createdWoodItemId;
-    }
-
-    public void setCreatedWoodItemId(Long createdWoodItemId) {
-        this.createdWoodItemId = createdWoodItemId;
     }
 }

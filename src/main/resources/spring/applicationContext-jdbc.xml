@@ -24,4 +24,5 @@
     <bean id="buildDao" class="com.jeremydyer.dao.woodshop.project.build.jdbc.BuildDaoImpl" parent="baseJdbc" />
     <bean id="buildCutDao" class="com.jeremydyer.dao.woodshop.project.build.jdbc.BuildCutDaoImpl" parent="baseJdbc" />
     <bean id="buildTimeDao" class="com.jeremydyer.dao.woodshop.project.build.jdbc.BuildTimeDaoImpl" parent="baseJdbc" />
+    <bean id="photoDao" class="com.jeremydyer.dao.media.jdbc.PhotoDaoImpl" parent="baseJdbc" />
 </beans>

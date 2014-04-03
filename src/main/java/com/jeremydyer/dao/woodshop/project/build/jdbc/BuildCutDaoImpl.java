@@ -17,4 +17,10 @@ public class BuildCutDaoImpl
     public BuildCutDaoImpl() {
         super(ReflectionBasedJdbcMapper.proxy(BuildCut.class), BuildCut.class, Long.class);
     }
+
+    @Override
+    public BuildCut buildCutForProjectCut(Long buildId, Long projectCutId) {
+        String sql = "SELECT * FROM " + this.getDomainMapper().getTablename() + " WHERE project_build_id = ? AND project_cut_id = ?";
+        return getJdbcTemplate().queryForObject(sql, new Object[]{buildId, projectCutId}, getDomainMapper());
+    }
 }

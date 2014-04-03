@@ -29,10 +29,6 @@ public class WoodItem
     @SaveWhen(insert = true, update = true)
     private Long woodTypeId;
 
-    @Column(name = "used_for_build_id")
-    @SaveWhen(insert = true, update = true)
-    private Long usedForProjectBuildId;
-
     @Column(name = "width")
     @SaveWhen(insert = true, update = true)
     private float width;
@@ -67,14 +63,6 @@ public class WoodItem
 
     public void setWoodTypeId(Long woodTypeId) {
         this.woodTypeId = woodTypeId;
-    }
-
-    public Long getUsedForProjectBuildId() {
-        return usedForProjectBuildId;
-    }
-
-    public void setUsedForProjectBuildId(Long usedForProjectBuildId) {
-        this.usedForProjectBuildId = usedForProjectBuildId;
     }
 
     public float getWidth() {
