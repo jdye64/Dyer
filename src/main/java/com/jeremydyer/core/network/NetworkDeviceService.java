@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * Defines a custom service that is running on the Network Device. This is not meant to hold the linux level services
- * running on the device but rather the custom services that I have written like, GPIO, camera software, etc.
+ * running on the device but rather the custom services that I have written like, RPiGPIOPin, camera software, etc.
  *
  * User: Jeremy Dyer
  * Date: 3/26/14
