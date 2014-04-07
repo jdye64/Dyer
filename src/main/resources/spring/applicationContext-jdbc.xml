@@ -14,17 +14,10 @@
     <bean id="networkDeviceServiceDao" class="com.jeremydyer.dao.network.jdbc.NetworkDeviceServiceDaoImpl" parent="baseJdbc" />
     <bean id="networkDeviceServiceCommandDao" class="com.jeremydyer.dao.network.jdbc.NetworkDeviceServiceCommandDaoImpl" parent="baseJdbc" />
 
-    <!-- Woodshop Persistence layer information -->
-    <bean id="woodTypeDao" class="com.jeremydyer.dao.woodshop.jdbc.WoodTypeDaoImpl" parent="baseJdbc" />
-    <bean id="woodSpeciesDao" class="com.jeremydyer.dao.woodshop.jdbc.WoodSpeciesDaoImpl" parent="baseJdbc" />
-    <bean id="woodItemDao" class="com.jeremydyer.dao.woodshop.jdbc.WoodItemDaoImpl" parent="baseJdbc" />
-    <bean id="projectDao" class="com.jeremydyer.dao.woodshop.project.jdbc.ProjectDaoImpl" parent="baseJdbc" />
-    <bean id="projectCutDao" class="com.jeremydyer.dao.woodshop.project.jdbc.ProjectCutDaoImpl" parent="baseJdbc" />
-    <bean id="projectStepDao" class="com.jeremydyer.dao.woodshop.project.jdbc.ProjectStepDaoImpl" parent="baseJdbc" />
-    <bean id="buildDao" class="com.jeremydyer.dao.woodshop.project.build.jdbc.BuildDaoImpl" parent="baseJdbc" />
-    <bean id="buildCutDao" class="com.jeremydyer.dao.woodshop.project.build.jdbc.BuildCutDaoImpl" parent="baseJdbc" />
-    <bean id="buildTimeDao" class="com.jeremydyer.dao.woodshop.project.build.jdbc.BuildTimeDaoImpl" parent="baseJdbc" />
+    <!-- System Photos -->
     <bean id="photoDao" class="com.jeremydyer.dao.media.jdbc.PhotoDaoImpl" parent="baseJdbc" />
+
+    <!-- RPi Remote Power Control -->
     <bean id="powerOutletDao" class="com.jeremydyer.dao.power.jdbc.PowerOutletDaoImpl" parent="baseJdbc" />
 
 </beans>
