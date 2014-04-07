@@ -1,5 +1,6 @@
 package com.jeremydyer.core.power;
 
+import com.jeremydyer.core.gpio.RPiGPIOPin;
 import com.makeandbuild.persistence.jdbc.SaveWhen;
 
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import java.io.Serializable;
  */
 @Table(name = "power_outlet")
 public class PowerOutlet
+    extends RPiGPIOPin
     implements Serializable {
 
     @Id
@@ -38,10 +40,6 @@ public class PowerOutlet
     @Column(name = "short_description")
     @SaveWhen(insert = true, update = true)
     private String shortDescription;
-
-    @Column(name = "gpio_pin")
-    @SaveWhen(insert = true, update = true)
-    private int gpioPin;
 
     @Column(name = "turned_on")
     @SaveWhen(insert = true, update = true)
@@ -85,14 +83,6 @@ public class PowerOutlet
 
     public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
-    }
-
-    public int getGpioPin() {
-        return gpioPin;
-    }
-
-    public void setGpioPin(int gpioPin) {
-        this.gpioPin = gpioPin;
     }
 
     public int getTurnedOn() {

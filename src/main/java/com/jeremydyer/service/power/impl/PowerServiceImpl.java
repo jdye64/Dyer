@@ -1,9 +1,16 @@
 package com.jeremydyer.service.power.impl;
 
+import com.jeremydyer.core.network.NetworkDevice;
 import com.jeremydyer.core.power.PowerOutlet;
+import com.jeremydyer.dao.network.NetworkDeviceDao;
+import com.jeremydyer.service.network.NetworkService;
 import com.jeremydyer.service.power.PowerService;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.Executors;
@@ -15,11 +22,15 @@ import java.util.concurrent.TimeUnit;
  * Date: 4/4/14
  * Time: 11:00 AM
  */
-@Service
 public class PowerServiceImpl
-    implements PowerService {
+    implements PowerService, NetworkService {
 
     private static final Logger logger = LoggerFactory.getLogger(PowerServiceImpl.class);
+
+    @Autowired
+    private NetworkDeviceDao networkDeviceDao;
+
+    private Long servicePort;
 
 
     public PowerServiceImpl() {
@@ -38,6 +49,36 @@ public class PowerServiceImpl
     @Override
     public String setRPiPin(PowerOutlet powerOutlet) {
         logger.info("About to physically call device.");
+
+        NetworkDevice networkDevice = networkDeviceDao.find(powerOutlet.getNetworkDeviceId());
+        if (networkDevice != null) {
+            String url = "http://" + networkDevice.getInternalIpAddress() + ":" + this.servicePort + "/gpio/api/v1" +
+                    ".0/" + powerOutlet.getGpioPin();
+            logger.info("Invoking REST service " + url);
+
+            try {
+                Client client = Client.create();
+                WebResource webResource = client.resource(url);
+                ClientResponse response = webResource.accept("application/json")
+                        .post(ClientResponse.class);
+
+                if (response.getStatus() != 200) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                            + response.getStatus());
+                }
+
+                String output = response.getEntity(String.class);
+
+                System.out.println("Output from Server .... \n");
+                System.out.println(output);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            logger.error("No networkdevice located with ID " + powerOutlet.getNetworkDeviceId());
+        }
 
 //        NetworkServiceCommandResponseDTO responseDTO = null;
 //
@@ -90,5 +131,10 @@ public class PowerServiceImpl
 //        return responseDTO;
 
         return "some stupid string";
+    }
+
+    @Override
+    public void setNetworkServicePort(Long servicePort) {
+        this.servicePort = servicePort;
     }
 }

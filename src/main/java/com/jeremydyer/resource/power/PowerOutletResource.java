@@ -1,4 +1,4 @@
-package com.jeremydyer.resource.gpio;
+package com.jeremydyer.resource.power;
 
 import com.jeremydyer.core.power.PowerOutlet;
 import com.jeremydyer.dao.power.PowerOutletDao;
@@ -54,19 +54,20 @@ public class PowerOutletResource
     public Response create(String json) {
         try{
             PowerOutlet outlet = getObjectMapper().readValue(json, PowerOutlet.class);
-            outlet = getDao().create(outlet);
 
             //Now that a new outlet has been created we want to send the GPIO state information to the RPi
             this.powerService.setRPiPin(outlet);
+            outlet = getDao().create(outlet);
 
             return Response.ok().entity(getObjectMapper().writeValueAsString(outlet)).build();
-        }catch(ObjectNotFoundException e){
+        } catch(ObjectNotFoundException e){
             return Response.status(400).build();
-        }catch(Exception e){
-            logger.warn("could not create resource with payload "+json, e);
+        } catch(Exception e){
+            logger.warn("could not create resource with payload " + json, e);
             throw new RestClientException("unable to create resource");
         }
     }
+
 
     @PUT
     @Consumes("application/json")
@@ -75,13 +76,13 @@ public class PowerOutletResource
     @Override
     public Response update(String json) {
         try{
+            logger.info("JSON " + json);
             ObjectMapper mapper = new ObjectMapper();
             PowerOutlet outlet = mapper.readValue(json, PowerOutlet.class);
-            //PowerOutlet outlet = getObjectMapper().readValue(json, PowerOutlet.class);
-            outlet = getDao().update(outlet);
 
             //Now that the power outlet has been updated we want to send the GPIO state information to the RPi
             this.powerService.setRPiPin(outlet);
+            outlet = getDao().update(outlet);
 
             return Response.ok().entity(getObjectMapper().writeValueAsString(outlet)).build();
         } catch(ObjectNotFoundException e){

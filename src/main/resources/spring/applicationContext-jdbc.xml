@@ -12,7 +12,6 @@
     <bean id="networkLocationDao" class="com.jeremydyer.dao.network.jdbc.NetworkLocationDaoImpl" parent="baseJdbc" />
     <bean id="networkDeviceDao" class="com.jeremydyer.dao.network.jdbc.NetworkDeviceDaoImpl" parent="baseJdbc" />
     <bean id="networkDeviceServiceDao" class="com.jeremydyer.dao.network.jdbc.NetworkDeviceServiceDaoImpl" parent="baseJdbc" />
-    <bean id="networkDeviceServiceCommandDao" class="com.jeremydyer.dao.network.jdbc.NetworkDeviceServiceCommandDaoImpl" parent="baseJdbc" />
 
     <!-- System Photos -->
     <bean id="photoDao" class="com.jeremydyer.dao.media.jdbc.PhotoDaoImpl" parent="baseJdbc" />

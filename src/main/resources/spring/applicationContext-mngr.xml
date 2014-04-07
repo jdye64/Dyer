@@ -3,8 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <bean id="networkService" class="com.jeremydyer.service.network.impl.NetworkServiceImpl" />
-    <bean id="commandService" class="com.jeremydyer.service.network.impl.RESTCommandService" />
+    <bean id="powerService" class="com.jeremydyer.service.power.impl.PowerServiceImpl">
+        <property name="networkServicePort" value="${service.gpio.power.port}" />
+    </bean>
 
     <bean id="photoService" class="com.jeremydyer.service.media.impl.PhotoServiceImpl">
         <property name="fileSystemBasePath" value="${photo.filesystem.base.path}" />
